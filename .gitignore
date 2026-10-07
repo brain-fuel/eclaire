@@ -1,9 +1,8 @@
 /build/
+/.stack-work/
 /eclaire-smoke
 /eclaire
-/elmish-clay-smoke
 /target/
-/examples/c/browser/static/elmish-clay-c.wasm
 /examples/browser/node_modules/
 /examples/c/browser/static/eclaire-c.wasm
 /examples/c/browser/static/showcase.css
