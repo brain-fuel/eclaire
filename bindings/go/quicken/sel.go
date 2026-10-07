@@ -10,7 +10,7 @@ import (
 	"gioui.org/layout"
 	"gioui.org/op"
 	"gioui.org/widget/material"
-	"github.com/brain-fuel/eclaire/bindings/go/eclaire"
+	"goforge.dev/eclaire/bindings/go/eclaire"
 	"goforge.dev/cadence/sel"
 	cadencestyle "goforge.dev/cadence/style"
 	"goforge.dev/quicken/native"

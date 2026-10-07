@@ -28,9 +28,10 @@ checks = {
     "bindings/fsharp/buildTransitive/Eclaire.targets": rf"<EclairePackageVersion Condition=.*>{re.escape(version)}</EclairePackageVersion>",
     "bindings/go/eclaire/native.go": rf'const Version = "{re.escape(version)}"',
     "bindings/haskell-cli/Main.hs": rf'packageVersion = "{re.escape(version)}"',
-    "go.mod": r"module github\.com/brain-fuel/eclaire",
-    "bindings/go/quicken/go.mod": rf"github\.com/brain-fuel/eclaire v{re.escape(version)}",
+    "go.mod": r"module goforge\.dev/eclaire",
+    "bindings/go/quicken/go.mod": rf"goforge\.dev/eclaire v{re.escape(version)}",
     "eclaire.toml": rf'version = "{re.escape(version)}"',
+    "package.json": rf'"name": "@brain-fuel/eclaire",\s+"version": "{re.escape(version)}"',
 }
 for relative, pattern in checks.items():
     content = (ROOT / relative).read_text()

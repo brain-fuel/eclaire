@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4 — 2026-10-07
+
+- Publish the Go module at `goforge.dev/eclaire` and update the GoForge vanity
+  import path, Go package documentation links, and Cadence/Quicken adapter path.
+- Add the npm package with install-time CMake builds for desktop, iOS, and
+  Android targets.
+- Keep the Clay pin at `e6cc36941ab2af5d81107617039d6f527a1c660b`.
+
 ## 0.1.3 — 2026-10-07
 
 - Place static and shared native outputs in the NuGet target's expected directory so iOS consumers link the packaged C archive.

@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <EclaireNativeSourceDir Condition="'$(EclaireNativeSourceDir)' == ''">$(MSBuildThisFileDirectory)native-src</EclaireNativeSourceDir>
-    <EclairePackageVersion Condition="'$(EclairePackageVersion)' == ''">0.1.3</EclairePackageVersion>
+  <EclairePackageVersion Condition="'$(EclairePackageVersion)' == ''">0.1.4</EclairePackageVersion>
     <AndroidNdkDirectory Condition="'$(AndroidNdkDirectory)' == '' and '$(ANDROID_NDK_HOME)' != ''">$(ANDROID_NDK_HOME)</AndroidNdkDirectory>
     <AndroidNdkDirectory Condition="'$(AndroidNdkDirectory)' == '' and '$(ANDROID_NDK_ROOT)' != ''">$(ANDROID_NDK_ROOT)</AndroidNdkDirectory>
     <EclaireNativeBuildDir Condition="'$(EclaireNativeBuildDir)' == ''">$(IntermediateOutputPath)eclaire-native/$(EclairePackageVersion)/$(RuntimeIdentifier)</EclaireNativeBuildDir>

@@ -1,0 +1,40 @@
+{
+  "name": "@brain-fuel/eclaire",
+  "version": "0.1.4",
+  "description": "Cross-language semantic UI and layout engine powered by Clay",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brain-fuel/eclaire.git"
+  },
+  "homepage": "https://github.com/brain-fuel/eclaire#readme",
+  "bugs": {
+    "url": "https://github.com/brain-fuel/eclaire/issues"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "exports": {
+    ".": "./npm/index.js"
+  },
+  "files": [
+    "npm/index.js",
+    "npm/README.md",
+    "npm/install.js",
+    "include/eclaire.h",
+    "src/eclaire.c",
+    "third_party/clay/clay.h",
+    "third_party/clay/LICENSE.md",
+    "eclaire.toml",
+    "CMakeLists.txt",
+    "cmake/eclaireConfig.cmake.in"
+  ],
+  "scripts": {
+    "install": "node npm/install.js",
+    "build:native": "node npm/install.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -13,6 +13,7 @@ PORT_HASKELL ?= 5094
 	build-haskell-browser test test-native test-parity parity-deps \
 	check-release build-stack build-rust build-go build-native-target pack-fsharp \
 	install-stack install-rust install-go \
+	pack-npm \
 	serve serve-c serve-fsharp serve-haskell stop stop-c stop-fsharp \
 	stop-haskell status
 
@@ -26,6 +27,7 @@ help:
 	@echo 'make build-rust     Build the Rust crate and eclaire CLI (including the host C core)'
 	@echo 'make build-go       Build the Go package and eclaire CLI with cgo'
 	@echo 'make pack-fsharp    Create the Eclaire NuGet package; consumer builds compile the C core'
+	@echo 'make pack-npm       Create the Eclaire npm package; npm install compiles the host C core'
 	@echo 'make build-native-target TARGET=ios-arm64  Build/install the native core for a target preset'
 	@echo 'make install-stack / install-rust / install-go    Install the local CLI into build/install/'
 	@echo 'make check-release  Verify all package versions and the pinned Clay commit/header hash'
@@ -68,6 +70,9 @@ build-native-target: check-release
 
 pack-fsharp: check-release
 	$(DOTNET) pack bindings/fsharp/Eclaire.fsproj --configuration Release --output $(BUILD_DIR)/nuget
+
+pack-npm: check-release
+	$(NPM) pack --pack-destination $(BUILD_DIR)/npm
 
 install-stack: check-release
 	stack install --local-bin-path $(BUILD_DIR)/install/stack

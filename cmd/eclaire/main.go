@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/brain-fuel/eclaire/bindings/go/eclaire"
+	"goforge.dev/eclaire/bindings/go/eclaire"
 )
 
 func main() {
