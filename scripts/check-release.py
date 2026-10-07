@@ -37,4 +37,16 @@ for relative, pattern in checks.items():
 for relative in ["third_party/clay/README.md", "bindings/haskell/Eclaire.hs", "bindings/rust/lib.rs", "bindings/fsharp/Eclaire.fs", "bindings/go/eclaire/native.go"]:
     assert clay_commit in (ROOT / relative).read_text(), f"{relative} does not record Clay commit {clay_commit}"
 
+for stale_name in ["Elmish" + " Clay", "elmish" + "-clay", "elmish" + "_clay", "ECL" + "_"]:
+    for path in ROOT.rglob("*"):
+        if not path.is_file() or any(part in {".git", "build", "target", ".stack-work", "node_modules"} for part in path.parts):
+            continue
+        if path.suffix in {".lock", ".wasm", ".png", ".svg", ".dll", ".dylib", ".a", ".o", ".hi"}:
+            continue
+        try:
+            content = path.read_text()
+        except (UnicodeDecodeError, OSError):
+            continue
+        assert stale_name not in content, f"stale project name {stale_name!r} remains in {path.relative_to(ROOT)}"
+
 print(f"Eclaire {version} pins Clay {clay_commit} ({header_hash})")
