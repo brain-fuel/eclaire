@@ -75,7 +75,7 @@ Consumers can import `eclaire::eclaire` with `find_package(eclaire 0.1 CONFIG RE
 - `ios-arm64`, `ios-simulator-arm64`, `ios-simulator-x86_64`
 - `android-arm64`, `android-arm`, `android-x86_64`, `android-x86`
 
-Android builds require `ANDROID_NDK_HOME` (or `ANDROID_NDK_ROOT`). iOS builds require Xcode. Desktop cross-compilers and additional CMake target options can be supplied through `ECLAIRE_CMAKE_ARGS`. Android presets are included but have not yet been verified in this development environment.
+Android builds require `ANDROID_NDK_HOME` (or `ANDROID_NDK_ROOT`). iOS builds require Xcode. Desktop cross-compilers and additional CMake target options can be supplied through `ECLAIRE_CMAKE_ARGS`. The macOS universal, iOS device/simulator, and all four Android ABI presets have been built successfully with Xcode and Android NDK r30.
 
 ## Cadence and Quicken
 
