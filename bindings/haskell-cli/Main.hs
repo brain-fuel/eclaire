@@ -15,5 +15,5 @@ main = do
     [] -> mainVersion
     _ -> putStrLn "Usage: eclaire version | --version | --help"
   where
-    packageVersion = "0.1.0"
+    packageVersion = "0.1.1"
     mainVersion = putStrLn $ "Eclaire " ++ packageVersion ++ " (Clay " ++ clayCommit ++ ")"

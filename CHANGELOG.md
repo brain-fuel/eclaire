@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Build target specific C libraries for .NET iOS and Android consumers, and link/package them through native build items.
+
 ## 0.1.0
 
 Initial preview release.

@@ -3,10 +3,18 @@ namespace Eclaire
 open System.Runtime.InteropServices
 
 module private Native =
+#if IOS
+    [<DllImport("__Internal", EntryPoint = "eclaire_ir_version", CallingConvention = CallingConvention.Cdecl)>]
+#else
     [<DllImport("eclaire", EntryPoint = "eclaire_ir_version", CallingConvention = CallingConvention.Cdecl)>]
+#endif
     extern uint32 irVersion()
 
+#if IOS
+    [<DllImport("__Internal", EntryPoint = "eclaire_min_memory_size", CallingConvention = CallingConvention.Cdecl)>]
+#else
     [<DllImport("eclaire", EntryPoint = "eclaire_min_memory_size", CallingConvention = CallingConvention.Cdecl)>]
+#endif
     extern unativeint minMemorySize(uint32 maxElements)
 
 [<RequireQualifiedAccess>]

@@ -8,7 +8,7 @@ package eclaire
 import "C"
 
 // Version is the Eclaire release represented by this Go package.
-const Version = "0.1.0"
+const Version = "0.1.1"
 
 // ClayCommit is the upstream Clay revision pinned by this Eclaire release.
 const ClayCommit = "e6cc36941ab2af5d81107617039d6f527a1c660b"

@@ -20,14 +20,16 @@ eclaire --version
 
 ### F# / .NET
 
-Eclaire is distributed as a NuGet package. Its `buildTransitive` target runs CMake while each consuming project builds, compiling the native core for that build's target and copying the resulting library beside the application. The consumer needs CMake and a C compiler. Pass `EclaireCMakeArgs` to provide a cross-compilation toolchain file.
+Eclaire is distributed as a NuGet package for `net10.0` and `net10.0-ios`. Its `buildTransitive` target runs CMake while each consuming project builds. Desktop builds copy the shared library beside the application; Android builds add the ABI-specific `.so` as an `AndroidNativeLibrary`; iOS builds a static library and adds it as a `NativeReference`. The consumer needs CMake and a C compiler. Android builds also need the .NET Android workload and an Android NDK; iOS builds need the .NET iOS workload and Xcode. `EclaireCMakeArgs` can override the inferred toolchain arguments.
 
 ```sh
 make pack-fsharp
-dotnet add package Eclaire --version 0.1.0 --source build/nuget
+dotnet add package Eclaire --version 0.1.1 --source build/nuget
 ```
 
-Once published, install it with `dotnet add package Eclaire --version 0.1.0`.
+For mobile apps, build with a runtime identifier such as `android-arm64`, `android-arm`, `android-x64`, `android-x86`, `ios-arm64`, `iossimulator-arm64`, or `iossimulator-x64`. The package builds the native library for that RID during the app build.
+
+Once published, install it with `dotnet add package Eclaire --version 0.1.1`.
 
 ### Rust / Cargo
 
@@ -38,7 +40,7 @@ cargo install --locked --path .
 eclaire --version
 ```
 
-Once published, Rust applications can add `eclaire = "0.1.0"` to `Cargo.toml` and call the Rust FFI facade. Cargo's selected target controls the native build.
+Once published, Rust applications can add `eclaire = "0.1.1"` to `Cargo.toml` and call the Rust FFI facade. Cargo's selected target controls the native build.
 
 ### Haskell / Hackage
 
@@ -49,7 +51,7 @@ Use `stack install eclaire` after the package is published to Hackage. From a so
 The Go package uses cgo to compile the native core with the target C compiler. Install the CLI with:
 
 ```sh
-go install github.com/brain-fuel/eclaire/cmd/eclaire@v0.1.0
+go install github.com/brain-fuel/eclaire/cmd/eclaire@v0.1.1
 eclaire --version
 ```
 

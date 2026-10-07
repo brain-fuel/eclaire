@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net10.0;net10.0-ios</TargetFrameworks>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <PackageId>Eclaire</PackageId>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Authors>Eclaire contributors</Authors>
     <Description>Cross-language semantic UI layout engine powered by Clay.</Description>
     <PackageLicenseExpression>MIT AND Zlib</PackageLicenseExpression>
@@ -15,6 +15,9 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/brain-fuel/eclaire</RepositoryUrl>
     <RepositoryCommit>$(SourceRevisionId)</RepositoryCommit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetPlatformIdentifier)' == 'ios'">
+    <DefineConstants>$(DefineConstants);IOS</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Eclaire.fs" />

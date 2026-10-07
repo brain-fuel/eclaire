@@ -1,18 +1,42 @@
 <Project>
   <PropertyGroup>
     <EclaireNativeSourceDir Condition="'$(EclaireNativeSourceDir)' == ''">$(MSBuildThisFileDirectory)native-src</EclaireNativeSourceDir>
-    <EclairePackageVersion Condition="'$(EclairePackageVersion)' == ''">0.1.0</EclairePackageVersion>
+    <EclairePackageVersion Condition="'$(EclairePackageVersion)' == ''">0.1.1</EclairePackageVersion>
+    <AndroidNdkDirectory Condition="'$(AndroidNdkDirectory)' == '' and '$(ANDROID_NDK_HOME)' != ''">$(ANDROID_NDK_HOME)</AndroidNdkDirectory>
+    <AndroidNdkDirectory Condition="'$(AndroidNdkDirectory)' == '' and '$(ANDROID_NDK_ROOT)' != ''">$(ANDROID_NDK_ROOT)</AndroidNdkDirectory>
     <EclaireNativeBuildDir Condition="'$(EclaireNativeBuildDir)' == ''">$(IntermediateOutputPath)eclaire-native/$(EclairePackageVersion)/$(RuntimeIdentifier)</EclaireNativeBuildDir>
-    <EclaireCMakeArgs Condition="'$(EclaireCMakeArgs)' == ''"></EclaireCMakeArgs>
+    <EclaireLibraryType Condition="'$(EclaireLibraryType)' == ''">SHARED</EclaireLibraryType>
+    <EclaireLibraryType Condition="'$(TargetPlatformIdentifier)' == 'ios' and '$(EclaireLibraryType)' == 'SHARED'">STATIC</EclaireLibraryType>
+    <_EclaireCMakeArgs Condition="'$(EclaireCMakeArgs)' != ''">$(EclaireCMakeArgs)</_EclaireCMakeArgs>
+    <_EclaireCMakeArgs Condition="'$(TargetPlatformIdentifier)' == 'ios' and '$(RuntimeIdentifier)' == 'ios-arm64' and '$(_EclaireCMakeArgs)' == ''">-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64</_EclaireCMakeArgs>
+    <_EclaireCMakeArgs Condition="'$(TargetPlatformIdentifier)' == 'ios' and '$(RuntimeIdentifier)' == 'iossimulator-arm64' and '$(_EclaireCMakeArgs)' == ''">-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=arm64</_EclaireCMakeArgs>
+    <_EclaireCMakeArgs Condition="'$(TargetPlatformIdentifier)' == 'ios' and '$(RuntimeIdentifier)' == 'iossimulator-x64' and '$(_EclaireCMakeArgs)' == ''">-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=x86_64</_EclaireCMakeArgs>
+    <_EclaireAndroidAbi Condition="'$(RuntimeIdentifier)' == 'android-arm64'">arm64-v8a</_EclaireAndroidAbi>
+    <_EclaireAndroidAbi Condition="'$(RuntimeIdentifier)' == 'android-arm'">armeabi-v7a</_EclaireAndroidAbi>
+    <_EclaireAndroidAbi Condition="'$(RuntimeIdentifier)' == 'android-x64'">x86_64</_EclaireAndroidAbi>
+    <_EclaireAndroidAbi Condition="'$(RuntimeIdentifier)' == 'android-x86'">x86</_EclaireAndroidAbi>
+    <_EclaireCMakeArgs Condition="'$(TargetPlatformIdentifier)' == 'android' and '$(_EclaireCMakeArgs)' == ''">-DCMAKE_TOOLCHAIN_FILE=&quot;$(AndroidNdkDirectory)/build/cmake/android.toolchain.cmake&quot; -DANDROID_ABI=$(_EclaireAndroidAbi)</_EclaireCMakeArgs>
+    <_EclaireCMakeArgs Condition="'$(_EclaireCMakeArgs)' == ''"></_EclaireCMakeArgs>
   </PropertyGroup>
-  <Target Name="BuildEclaireNative" BeforeTargets="CopyFilesToOutputDirectory" Condition="'$(DesignTimeBuild)' != 'true'">
-    <Exec Command="cmake -S &quot;$(EclaireNativeSourceDir)&quot; -B &quot;$(EclaireNativeBuildDir)&quot; -DCMAKE_BUILD_TYPE=$(Configuration) $(EclaireCMakeArgs)" />
+  <Target Name="BuildEclaireNative" BeforeTargets="PrepareForBuild" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="'$(TargetPlatformIdentifier)' == 'ios' and '$(_EclaireCMakeArgs)' == ''" Text="Set RuntimeIdentifier to ios-arm64, iossimulator-arm64, or iossimulator-x64, or provide EclaireCMakeArgs." />
+    <Error Condition="'$(TargetPlatformIdentifier)' == 'android' and '$(_EclaireAndroidAbi)' == ''" Text="Eclaire supports Android RIDs android-arm64, android-arm, android-x64, and android-x86." />
+    <Error Condition="'$(TargetPlatformIdentifier)' == 'android' and '$(AndroidNdkDirectory)' == ''" Text="Set AndroidNdkDirectory or install the Android workload so .NET can locate an NDK." />
+    <Exec Command="cmake -S &quot;$(EclaireNativeSourceDir)&quot; -B &quot;$(EclaireNativeBuildDir)&quot; -DCMAKE_BUILD_TYPE=$(Configuration) -DECLAIRE_LIBRARY_TYPE=$(EclaireLibraryType) $(_EclaireCMakeArgs)" />
     <Exec Command="cmake --build &quot;$(EclaireNativeBuildDir)&quot; --config $(Configuration)" />
     <ItemGroup>
-      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/libeclaire.*" />
-      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/eclaire.dll" Condition="'$(OS)' == 'Windows_NT'" />
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/libeclaire.a" Condition="'$(TargetPlatformIdentifier)' == 'ios'" />
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/libeclaire.so" Condition="'$(TargetPlatformIdentifier)' == 'android'" />
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/libeclaire.*" Condition="'$(TargetPlatformIdentifier)' != 'ios' and '$(TargetPlatformIdentifier)' != 'android'" />
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/eclaire.dll" Condition="'$(TargetPlatformIdentifier)' != 'ios' and '$(TargetPlatformIdentifier)' != 'android' and '$(OS)' == 'Windows_NT'" />
     </ItemGroup>
-    <Error Condition="'@(_EclaireNativeFile)' == ''" Text="Eclaire native build produced no shared library. Verify CMake and a C compiler are installed." />
-    <Copy SourceFiles="@(_EclaireNativeFile)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+    <Error Condition="'@(_EclaireNativeFile)' == ''" Text="Eclaire native build produced no library for $(RuntimeIdentifier). Check the CMake toolchain and native compiler." />
+    <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'ios'">
+      <NativeReference Include="@(_EclaireNativeFile)" Kind="Static" ForceLoad="true" SmartLink="true" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'android'">
+      <AndroidNativeLibrary Include="@(_EclaireNativeFile)" Abi="$(_EclaireAndroidAbi)" />
+    </ItemGroup>
+    <Copy Condition="'$(TargetPlatformIdentifier)' != 'ios' and '$(TargetPlatformIdentifier)' != 'android'" SourceFiles="@(_EclaireNativeFile)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>

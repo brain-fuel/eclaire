@@ -1,6 +1,6 @@
 [package]
 name = "eclaire"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Cross-language semantic UI layout engine powered by Clay"
 license = "MIT AND Zlib"
