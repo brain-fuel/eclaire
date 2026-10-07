@@ -16,6 +16,8 @@ def field(name: str) -> str:
 
 version = field("version")
 clay_commit = field("clay_commit")
+release_commit = field("release_commit")
+assert release_commit == "release_commit_pending" or (len(release_commit) == 40 and all(c in "0123456789abcdef" for c in release_commit)), "invalid release commit"
 header_hash = hashlib.sha256((ROOT / "third_party/clay/clay.h").read_bytes()).hexdigest()
 assert header_hash == field("clay_header_sha256"), "vendored Clay header differs from eclaire.toml"
 assert len(clay_commit) == 40 and all(c in "0123456789abcdef" for c in clay_commit), "invalid Clay commit"
@@ -25,10 +27,11 @@ checks = {
     "Cargo.toml": rf'name = "eclaire"\s+version = "{re.escape(version)}"',
     "eclaire.cabal": rf"name: eclaire\s+version: {re.escape(version)}\.0",
     "bindings/fsharp/Eclaire.fsproj": rf"<PackageId>Eclaire</PackageId>\s+<Version>{re.escape(version)}</Version>",
-    "bindings/fsharp/buildTransitive/Eclaire.targets": rf"<EclairePackageVersion>{re.escape(version)}</EclairePackageVersion>",
+    "bindings/fsharp/buildTransitive/Eclaire.targets": rf"<EclairePackageVersion Condition=.*>{re.escape(version)}</EclairePackageVersion>",
     "bindings/go/eclaire/native.go": rf'const Version = "{re.escape(version)}"',
     "bindings/haskell-cli/Main.hs": rf'packageVersion = "{re.escape(version)}"',
     "go.mod": r"module github\.com/brain-fuel/eclaire",
+    "eclaire.toml": rf'version = "{re.escape(version)}"',
 }
 for relative, pattern in checks.items():
     content = (ROOT / relative).read_text()

@@ -27,7 +27,7 @@ make pack-fsharp
 dotnet add package Eclaire --version 0.1.0 --source build/nuget
 ```
 
-After NuGet publication, install it with `dotnet add package Eclaire --version 0.1.0`.
+Once published, install it with `dotnet add package Eclaire --version 0.1.0`.
 
 ### Rust / Cargo
 
@@ -38,7 +38,11 @@ cargo install --locked --path .
 eclaire --version
 ```
 
-Rust applications can add `eclaire = "0.1.0"` to `Cargo.toml` and call the Rust FFI facade. Cargo's selected target controls the native build.
+Once published, Rust applications can add `eclaire = "0.1.0"` to `Cargo.toml` and call the Rust FFI facade. Cargo's selected target controls the native build.
+
+### Haskell / Hackage
+
+Use `stack install eclaire` after the package is published to Hackage. From a source checkout, `stack install` builds and installs the local library and CLI.
 
 ### Go
 
@@ -64,18 +68,18 @@ Consumers can import `eclaire::eclaire` with `find_package(eclaire 0.1 CONFIG RE
 
 ## Native target builds
 
-`make build-native-target TARGET=<target>` configures, builds, and installs the C core into a target-specific directory. Supported presets are:
+`make build-native-target TARGET=<target>` configures, builds, and installs the C core into a target-specific directory. The native presets cover these desktop and mobile targets:
 
 - `host`
 - `macos-universal`
 - `ios-arm64`, `ios-simulator-arm64`, `ios-simulator-x86_64`
 - `android-arm64`, `android-arm`, `android-x86_64`, `android-x86`
 
-Android builds require `ANDROID_NDK_HOME` (or `ANDROID_NDK_ROOT`). iOS builds require Xcode. Desktop cross-compilers and additional CMake target options can be supplied through `ECLAIRE_CMAKE_ARGS`.
+Android builds require `ANDROID_NDK_HOME` (or `ANDROID_NDK_ROOT`). iOS builds require Xcode. Desktop cross-compilers and additional CMake target options can be supplied through `ECLAIRE_CMAKE_ARGS`. Android presets are included but have not yet been verified in this development environment.
 
 ## Cadence and Quicken
 
-Cadence provides GoForge's target-independent Elm Architecture, model/update loop, and semantic elements. Quicken interprets those programs in browser, terminal, desktop, and mobile hosts. Eclaire supplies shared Clay-backed geometry beneath those renderers while each host retains its platform-native controls, accessibility tree, and app state. The Go package gives GoForge a stable integration point; direct Cadence and Quicken adapters are a follow-on integration.
+Cadence provides GoForge's target-independent Elm Architecture, model/update loop, and semantic elements. Quicken interprets those programs in browser, terminal, desktop, and mobile hosts. Eclaire is intended to supply shared Clay-backed geometry beneath those renderers while each host retains its platform-native controls, accessibility tree, and app state. The Go package gives GoForge a stable integration point; direct Cadence and Quicken adapters remain follow-on integration work.
 
 ## Browser showcase
 

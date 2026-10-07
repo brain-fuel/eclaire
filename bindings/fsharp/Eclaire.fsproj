@@ -8,6 +8,8 @@
     <Description>Cross-language semantic UI layout engine powered by Clay.</Description>
     <PackageLicenseExpression>MIT AND Zlib</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>semantic-ui;layout;clay</PackageTags>
+    <PackageReleaseNotes>One Eclaire package version is pinned to one Clay commit. See eclaire.toml.</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>
     <RepositoryType>git</RepositoryType>

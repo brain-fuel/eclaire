@@ -1,12 +1,10 @@
 /build/
 /.stack-work/
-/eclaire-smoke
+/elmish*-smoke
 /eclaire
-/eclaire-smoke
 /target/
 /examples/browser/node_modules/
-/examples/c/browser/static/eclaire-c.wasm
-/examples/c/browser/static/eclaire-c.wasm
+/examples/c/browser/static/*.wasm
 /examples/c/browser/static/showcase.css
 /examples/c/browser/static/night-sky.svg
 /examples/fsharp/bin/

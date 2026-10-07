@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <EclaireNativeSourceDir Condition="'$(EclaireNativeSourceDir)' == ''">$(MSBuildThisFileDirectory)native-src</EclaireNativeSourceDir>
-    <EclairePackageVersion>0.1.0</EclairePackageVersion>
+    <EclairePackageVersion Condition="'$(EclairePackageVersion)' == ''">0.1.0</EclairePackageVersion>
     <EclaireNativeBuildDir Condition="'$(EclaireNativeBuildDir)' == ''">$(IntermediateOutputPath)eclaire-native/$(EclairePackageVersion)/$(RuntimeIdentifier)</EclaireNativeBuildDir>
     <EclaireCMakeArgs Condition="'$(EclaireCMakeArgs)' == ''"></EclaireCMakeArgs>
   </PropertyGroup>
