@@ -1,10 +1,10 @@
 cabal-version: 3.0
-name: elmish-clay-web
+name: eclaire-web
 version: 0.1.0.0
 build-type: Simple
 license: MIT
 
-executable elmish-clay-web
+executable eclaire-web
   main-is: Main.hs
   hs-source-dirs: app
   build-depends: base < 5, miso >= 1.14

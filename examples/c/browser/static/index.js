@@ -1,7 +1,7 @@
 import { WASI, OpenFile, File, ConsoleStdout } from "https://cdn.jsdelivr.net/npm/@bjorn3/browser_wasi_shim@0.3.0/dist/index.js";
 const fds = [new OpenFile(new File([])), ConsoleStdout.lineBuffered(console.log), ConsoleStdout.lineBuffered(console.warn)];
 const wasi = new WASI([], ["GHCRTS=-H32m"], fds, { debug: false });
-const { instance } = await WebAssembly.instantiateStreaming(fetch("./elmish-clay-c.wasm"), {
+const { instance } = await WebAssembly.instantiateStreaming(fetch("./eclaire-c.wasm"), {
   wasi_snapshot_preview1: wasi.wasiImport,
 });
 const exitCode = wasi.start(instance);

@@ -8,6 +8,6 @@ mkdir -p static
 cp ../../browser/showcase.css static/showcase.css
 cp ../../browser/night-sky.svg static/night-sky.svg
 "$CC" -O2 -std=c11 -I../../../include \
-  -Wl,--export=demo_count -Wl,--export=demo_expanded -Wl,--export=demo_action -Wl,--export=demo_init -Wl,--export=demo_layout -Wl,--export=ecl_last_error \
-  -I../../../third_party/clay src/demo.c ../../../src/elmish_clay.c -lm -o static/elmish-clay-c.wasm
+  -Wl,--export=demo_count -Wl,--export=demo_expanded -Wl,--export=demo_action -Wl,--export=demo_init -Wl,--export=demo_layout -Wl,--export=eclaire_last_error \
+  -I../../../third_party/clay src/demo.c ../../../src/eclaire.c -lm -o static/eclaire-c.wasm
 printf 'Built C browser demo in %s/static\n' "$PWD"

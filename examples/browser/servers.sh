@@ -71,7 +71,7 @@ stop_service() {
   case "$service:$command_line" in
     c:*"http.server "*"examples/c/browser/static"* | \
     haskell:*"http.server "*"examples/haskell/browser/public"* | \
-    fsharp:*"dotnet run --no-build --no-launch-profile"*"ElmishClay.Browser.fsproj"*)
+    fsharp:*"dotnet run --no-build --no-launch-profile"*"Eclaire.Browser.fsproj"*)
       : >"$marker"
       stop_tree "$pid"
       rm -f "$pidfile"
@@ -112,7 +112,7 @@ start_service() {
       nohup python3 -m http.server "$port" --bind 127.0.0.1 --directory "$root/examples/c/browser/static" >"$logfile" 2>&1 </dev/null &
       ;;
     fsharp)
-      nohup dotnet run --no-build --no-launch-profile --project "$root/examples/fsharp/browser/ElmishClay.Browser.fsproj" --urls "http://127.0.0.1:$port" >"$logfile" 2>&1 </dev/null &
+      nohup dotnet run --no-build --no-launch-profile --project "$root/examples/fsharp/browser/Eclaire.Browser.fsproj" --urls "http://127.0.0.1:$port" >"$logfile" 2>&1 </dev/null &
       ;;
     haskell)
       nohup python3 -m http.server "$port" --bind 127.0.0.1 --directory "$root/examples/haskell/browser/public" >"$logfile" 2>&1 </dev/null &

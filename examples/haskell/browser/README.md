@@ -5,7 +5,7 @@ This Miso 1.14 WebAssembly host follows the shared content, element/action IDs, 
 The toolchain must be installed and available at `~/.ghc-wasm/env`, or `wasm32-wasi-cabal` and `wasm32-wasi-ghc` must already be on PATH. Build and serve it with:
 
 ```sh
-cd elmish-clay/examples/haskell/browser
+cd eclaire/examples/haskell/browser
 ./build.sh
 python3 -m http.server 5094 -d public
 ```

@@ -1,7 +1,11 @@
 /build/
+/eclaire-smoke
+/eclaire
 /elmish-clay-smoke
-/examples/browser/node_modules/
+/target/
 /examples/c/browser/static/elmish-clay-c.wasm
+/examples/browser/node_modules/
+/examples/c/browser/static/eclaire-c.wasm
 /examples/c/browser/static/showcase.css
 /examples/c/browser/static/night-sky.svg
 /examples/fsharp/bin/
@@ -14,3 +18,6 @@
 /examples/haskell/browser/public/
 /examples/haskell/browser/static/showcase.css
 /examples/haskell/browser/static/night-sky.svg
+/bindings/haskell/.stack-work/
+/bindings/fsharp/bin/
+/bindings/fsharp/obj/

@@ -1,4 +1,4 @@
-namespace ElmishClay.Showcase
+namespace Eclaire.Showcase
 
 open System
 

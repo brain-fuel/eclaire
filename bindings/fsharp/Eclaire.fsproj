@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <PackageId>Eclaire</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Eclaire contributors</Authors>
+    <Description>Cross-language semantic UI layout engine powered by Clay.</Description>
+    <PackageLicenseExpression>MIT AND Zlib</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/brain-fuel/eclaire</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Eclaire.fs" />
+    <None Include="../../README.md" Pack="true" PackagePath="README.md" />
+    <None Include="../../LICENSE" Pack="true" PackagePath="LICENSE" />
+    <None Include="buildTransitive/Eclaire.targets" Pack="true" PackagePath="buildTransitive/Eclaire.targets" />
+    <None Include="native/CMakeLists.txt" Pack="true" PackagePath="buildTransitive/native-src/CMakeLists.txt" />
+    <None Include="../../eclaire.toml" Pack="true" PackagePath="buildTransitive/native-src/eclaire.toml" />
+    <None Include="../../src/eclaire.c" Pack="true" PackagePath="buildTransitive/native-src/src/eclaire.c" />
+    <None Include="../../include/eclaire.h" Pack="true" PackagePath="buildTransitive/native-src/include/eclaire.h" />
+    <None Include="../../third_party/clay/clay.h" Pack="true" PackagePath="buildTransitive/native-src/third_party/clay/clay.h" />
+    <None Include="../../third_party/clay/LICENSE.md" Pack="true" PackagePath="buildTransitive/native-src/third_party/clay/LICENSE.md" />
+  </ItemGroup>
+</Project>

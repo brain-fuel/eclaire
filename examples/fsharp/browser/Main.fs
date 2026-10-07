@@ -1,9 +1,9 @@
-module ElmishClayBrowser.Client.Main
+module EclaireBrowser.Client.Main
 
 open Elmish
 open Bolero
 open Bolero.Html
-open ElmishClay.Showcase
+open Eclaire.Showcase
 
 let private scrollCopy =
     "Resize the browser to see the responsive card. Use Tab to move through the controls, then Space or Enter to activate them. The counter updates in a polite live region. The checkbox controls this details section. The image has alternative text, and this notes panel scrolls independently when its content is taller than the panel. All three runtimes use the same action IDs: 100 decreases, 101 increases, and 102 toggles details."
@@ -11,7 +11,7 @@ let private scrollCopy =
 let view model dispatch =
     concat {
         header {
-            p { attr.``class`` "eyebrow"; "ELMISH CLAY SHOWCASE" }
+            p { attr.``class`` "eyebrow"; "ECLAIRE SHOWCASE" }
             h1 { "One model, three runtimes" }
             p { attr.``class`` "lede"; "The same state, controls, content, and actions in C, F#, and Haskell." }
         }
@@ -68,7 +68,7 @@ let view model dispatch =
                 }
             }
         }
-        footer { "Elmish Clay cross-language showcase · actions 100–102" }
+        footer { "Eclaire cross-language showcase · actions 100–102" }
     }
 
 type MyApp() =

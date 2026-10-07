@@ -11,18 +11,18 @@ Build all hosts in dependency order with `make build` from the project root. Run
 To run each host in a separate terminal:
 
 ```sh
-cd elmish-clay/examples/c/browser
+cd eclaire/examples/c/browser
 ./build.sh
 python3 -m http.server 5092 -d static
 ```
 
 ```sh
-cd elmish-clay/examples/fsharp/browser
-dotnet run --no-launch-profile --project ElmishClay.Browser.fsproj --urls http://127.0.0.1:5093
+cd eclaire/examples/fsharp/browser
+dotnet run --no-launch-profile --project Eclaire.Browser.fsproj --urls http://127.0.0.1:5093
 ```
 
 ```sh
-cd elmish-clay/examples/haskell/browser
+cd eclaire/examples/haskell/browser
 ./build.sh
 python3 -m http.server 5094 -d public
 ```

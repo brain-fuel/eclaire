@@ -1,42 +1,82 @@
-# Elmish Clay
+# Eclaire
 
-A small cross-language UI core built on Clay. This project wraps Clay's macro-oriented layout builder behind a C ABI and defines version 1 of a semantic UI contract. The upstream Clay header is vendored in `third_party/clay/` so the project builds as a standalone checkout; it remains unmodified and retains its own license.
+Eclaire is a cross-language semantic UI and layout engine powered by Clay. It exposes a C ABI and a versioned semantic UI contract. The same unmodified Clay header is vendored in `third_party/clay/` and compiled by each language toolchain for its selected target.
 
-## Contract
+## Release identity
 
-`EclDocument`/`EclElement` define a deterministic IR shape. IDs are app-provided stable 64-bit values, action IDs are opaque symbols dispatched by the language runtime, and model state and closures stay in each app. Elements carry layout intent, control kind/role, accessible name, state flags, and style measurements. Accessibility validation belongs to the language-level lowering layer: actionable controls need a role, accessible name, and action ID unless the app has explicitly opted out or a reasoned subtree exemption applies. Diagnostics retain source and affected element indexes.
+Each Eclaire release maps to exactly one Clay revision. [`eclaire.toml`](eclaire.toml) records the Eclaire version, Clay commit, and SHA-256 of the vendored header. Run `make check-release` before building or packaging to verify that map and all language package versions.
 
-Version 1 ABI currently exposes the Clay frame builder and render command/geometry readers. Each target adapter advertises semantic capabilities; browser output is the visual reference and uses semantic DOM peers, while native/TUI use platform peers and adapt geometry. This C ABI is deliberately narrower than the IR and is not a DOM or Elm runtime.
+## Packages and setup
 
-## Build
+### Haskell / Stack
+
+The Cabal library and `eclaire` CLI compile the native C core with Stack's active GHC C toolchain.
+
+```sh
+stack build
+stack install
+eclaire --version
+```
+
+### F# / .NET
+
+Eclaire is distributed as a NuGet package. Its `buildTransitive` target runs CMake while each consuming project builds, compiling the native core for that build's target and copying the resulting library beside the application. The consumer needs CMake and a C compiler. Pass `EclaireCMakeArgs` to provide a cross-compilation toolchain file.
+
+```sh
+make pack-fsharp
+dotnet add package Eclaire --version 0.1.0 --source build/nuget
+```
+
+After NuGet publication, install it with `dotnet add package Eclaire --version 0.1.0`.
+
+### Rust / Cargo
+
+The Cargo library and CLI compile the native C core with Cargo's target-aware C compiler during setup.
+
+```sh
+cargo install --locked --path .
+eclaire --version
+```
+
+Rust applications can add `eclaire = "0.1.0"` to `Cargo.toml` and call the Rust FFI facade. Cargo's selected target controls the native build.
+
+### Go
+
+The Go package uses cgo to compile the native core with the target C compiler. Install the CLI with:
+
+```sh
+go install github.com/brain-fuel/eclaire/cmd/eclaire@v0.1.0
+eclaire --version
+```
+
+For cross-target builds, set Go's `GOOS`, `GOARCH`, `CGO_ENABLED`, and target C compiler together. GoForge's future Cadence and Quicken adapters will use this package boundary.
+
+### CMake / C
 
 ```sh
 cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
+cmake --install build --prefix <install-prefix>
 ```
 
-To install the C library and public header, run `cmake --install build --prefix <install-prefix>` after building. A CMake consumer can then use:
+Consumers can import `eclaire::eclaire` with `find_package(eclaire 0.1 CONFIG REQUIRED)`. Direct CMake builds use the active C compiler. The host must provide a text measurement callback for real font metrics; the fallback is deterministic approximate measurement for smoke tests. The caller owns the Clay arena memory for the initialized context.
 
-```cmake
-find_package(elmish_clay 0.1 CONFIG REQUIRED)
-target_link_libraries(my_app PRIVATE elmish_clay::elmish_clay)
-```
+## Native target builds
 
-The host must provide a text measurement callback for real font metrics. The fallback is deterministic approximate measurement for smoke tests only. The caller owns and must retain the Clay arena memory for the initialized context.
+`make build-native-target TARGET=<target>` configures, builds, and installs the C core into a target-specific directory. Supported presets are:
 
-For the C core and all C, F#, and Haskell browser demos, use `make build`. Run the native C test and browser-driven parity checks with `make test`. Browser checks need Node.js/npm, Playwright, and Chrome (macOS) or a Playwright Chromium installation. See `make help` for individual build and serve stages.
+- `host`
+- `macos-universal`
+- `ios-arm64`, `ios-simulator-arm64`, `ios-simulator-x86_64`
+- `android-arm64`, `android-arm`, `android-x86_64`, `android-x86`
 
-## Roadmap boundaries
+Android builds require `ANDROID_NDK_HOME` (or `ANDROID_NDK_ROOT`). iOS builds require Xcode. Desktop cross-compilers and additional CMake target options can be supplied through `ECLAIRE_CMAKE_ARGS`.
 
-The current deliverable includes the C core and matching C, F#, and Haskell browser showcases. Bolero and Miso browser hosts are implemented; Terminal.Gui/Avalonia.FuncUI, Brick/GTK4/Miso Native, platform accessibility audits, and full WCAG verification remain follow-on work. Wavelet remains a future IR consumer.
+## Cadence and Quicken
 
-## Browser examples
+Cadence provides GoForge's target-independent Elm Architecture, model/update loop, and semantic elements. Quicken interprets those programs in browser, terminal, desktop, and mobile hosts. Eclaire supplies shared Clay-backed geometry beneath those renderers while each host retains its platform-native controls, accessibility tree, and app state. The Go package gives GoForge a stable integration point; direct Cadence and Quicken adapters are a follow-on integration.
 
-C, F#, and Haskell browser examples follow the shared contract in `examples/browser/showcase.json` and render the same semantic DOM, content, actions, and layout using one stylesheet. See `examples/browser/README.md` for launch commands. The C target owns model/action state in WebAssembly and runs the Clay C ABI layout pass; F# uses Bolero WebAssembly and Haskell uses Miso WebAssembly.
+## Browser showcase
 
-## Accessibility and target profile
-
-The contract sets WCAG 2.2 AA as the default app profile. An app-level opt-out is an explicit runtime configuration, and component exemptions carry a required reason, source component, and inherited subtree scope. Reports should attach affected descendant IDs and roll exemption diagnostics up through ancestor and whole-app reports. Required semantic omissions are errors by default; detectable heuristic concerns are warnings. Web pages require complete-page WCAG review; native adapters verify names, roles, focus, and actions through platform accessibility APIs; TUI adapters keep navigation keyboard-driven and states independent of color.
-
-The intended full host matrix is Bolero plus Terminal.Gui and Avalonia.FuncUI for F#, and Miso plus Brick, GTK4/haskell-gi, and Miso Native/Lynx for Haskell. The IR and Clay ABI do not claim those adapters are already implemented. Browser DOM is the visual reference. Canvas is reserved for decorative/custom drawing, while native peers map semantics and TUI may adapt dimensions to terminal cells.
+C, F#, and Haskell browser examples share a semantic showcase contract and compare content, controls, and desktop/mobile geometry. Build all examples with `make build` and run the native plus browser checks with `make test`. The browser checks need Node.js/npm, Playwright, and Chrome or Playwright Chromium.

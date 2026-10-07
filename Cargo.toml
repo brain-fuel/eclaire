@@ -1,0 +1,31 @@
+[package]
+name = "eclaire"
+version = "0.1.0"
+edition = "2021"
+description = "Cross-language semantic UI layout engine powered by Clay"
+license = "MIT AND Zlib"
+readme = "README.md"
+build = "bindings/rust/build.rs"
+include = [
+  "Cargo.toml",
+  "Cargo.lock",
+  "README.md",
+  "LICENSE",
+  "eclaire.toml",
+  "ir-v1.json",
+  "include/eclaire.h",
+  "src/eclaire.c",
+  "third_party/clay/clay.h",
+  "third_party/clay/LICENSE.md",
+  "bindings/rust/**",
+]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[[bin]]
+name = "eclaire"
+path = "bindings/rust/main.rs"
+
+[build-dependencies]
+cc = "1"

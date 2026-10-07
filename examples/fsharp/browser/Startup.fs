@@ -1,4 +1,4 @@
-namespace ElmishClayBrowser.Client
+namespace EclaireBrowser.Client
 
 open Microsoft.AspNetCore.Components.WebAssembly.Hosting
 open Microsoft.Extensions.DependencyInjection

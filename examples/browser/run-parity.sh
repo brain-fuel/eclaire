@@ -36,7 +36,7 @@ trap cleanup EXIT INT TERM
 
 python3 -m http.server "$port_c" -d examples/c/browser/static >"$log_dir/c.log" 2>&1 &
 pid_c=$!
-dotnet run --no-build --no-launch-profile --project examples/fsharp/browser/ElmishClay.Browser.fsproj --urls "http://127.0.0.1:$port_fsharp" >"$log_dir/fsharp.log" 2>&1 &
+dotnet run --no-build --no-launch-profile --project examples/fsharp/browser/Eclaire.Browser.fsproj --urls "http://127.0.0.1:$port_fsharp" >"$log_dir/fsharp.log" 2>&1 &
 pid_fsharp=$!
 python3 -m http.server "$port_haskell" -d examples/haskell/browser/public >"$log_dir/haskell.log" 2>&1 &
 pid_haskell=$!

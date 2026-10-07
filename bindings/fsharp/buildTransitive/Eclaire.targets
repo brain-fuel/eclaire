@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <EclaireNativeSourceDir Condition="'$(EclaireNativeSourceDir)' == ''">$(MSBuildThisFileDirectory)native-src</EclaireNativeSourceDir>
+    <EclairePackageVersion>0.1.0</EclairePackageVersion>
+    <EclaireNativeBuildDir Condition="'$(EclaireNativeBuildDir)' == ''">$(IntermediateOutputPath)eclaire-native/$(EclairePackageVersion)/$(RuntimeIdentifier)</EclaireNativeBuildDir>
+    <EclaireCMakeArgs Condition="'$(EclaireCMakeArgs)' == ''"></EclaireCMakeArgs>
+  </PropertyGroup>
+  <Target Name="BuildEclaireNative" BeforeTargets="CopyFilesToOutputDirectory" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Exec Command="cmake -S &quot;$(EclaireNativeSourceDir)&quot; -B &quot;$(EclaireNativeBuildDir)&quot; -DCMAKE_BUILD_TYPE=$(Configuration) $(EclaireCMakeArgs)" />
+    <Exec Command="cmake --build &quot;$(EclaireNativeBuildDir)&quot; --config $(Configuration)" />
+    <ItemGroup>
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/libeclaire.*" />
+      <_EclaireNativeFile Include="$(EclaireNativeBuildDir)/out/eclaire.dll" Condition="'$(OS)' == 'Windows_NT'" />
+    </ItemGroup>
+    <Error Condition="'@(_EclaireNativeFile)' == ''" Text="Eclaire native build produced no shared library. Verify CMake and a C compiler are installed." />
+    <Copy SourceFiles="@(_EclaireNativeFile)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
