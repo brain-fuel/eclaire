@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <PackageId>Eclaire</PackageId>
     <Version>0.1.0</Version>
     <Authors>Eclaire contributors</Authors>
@@ -11,6 +12,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/brain-fuel/eclaire</RepositoryUrl>
+    <RepositoryCommit>$(SourceRevisionId)</RepositoryCommit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Eclaire.fs" />
