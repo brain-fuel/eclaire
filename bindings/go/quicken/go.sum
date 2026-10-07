@@ -11,6 +11,8 @@ github.com/go-text/typesetting-utils v0.0.0-20260223113751-2d88ac90dae3 h1:drBZz
 github.com/go-text/typesetting-utils v0.0.0-20260223113751-2d88ac90dae3/go.mod h1:3/62I4La/HBRX9TcTpBj4eipLiwzf+vhI+7whTc9V7o=
 goforge.dev/cadence v0.4.0 h1:pvAVTsjYGwtREMcY2VnFRSMENdQm1mdjJ9GISbGnNLk=
 goforge.dev/cadence v0.4.0/go.mod h1:dyGhmXoYQgEsB9BlDBY+aO2bwPbbvhXyFkq96c5hyO8=
+goforge.dev/eclaire v0.1.4 h1:hwM5fY3QDdRuaqgZzwGoC1cqYq/GYRh0x7Fn1/PrW/w=
+goforge.dev/eclaire v0.1.4/go.mod h1:TjHx2x/dN9NDlve8TVZomiY3TR53g36KMkLJ/F5syGo=
 goforge.dev/quicken/native v0.2.0 h1:fPRlc1lW+SF88RUNXvOc/ATYdIxYZBXhCxPWdJzECow=
 goforge.dev/quicken/native v0.2.0/go.mod h1:biI3aBbKjfSb38ENAbIXmsTlkzGX9aN3sMmW+L+ApZ0=
 golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0 h1:R84qjqJb5nVJMxqWYb3np9L5ZsaDtB+a39EqjV0JSUM=
