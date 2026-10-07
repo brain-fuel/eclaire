@@ -3,7 +3,7 @@
     <TargetFrameworks>net10.0;net10.0-ios</TargetFrameworks>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <PackageId>Eclaire</PackageId>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <Authors>Eclaire contributors</Authors>
     <Description>Cross-language semantic UI layout engine powered by Clay.</Description>
     <PackageLicenseExpression>MIT AND Zlib</PackageLicenseExpression>

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(eclaire VERSION 0.1.2 LANGUAGES C)
+project(eclaire VERSION 0.1.3 LANGUAGES C)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/eclaire.toml" ECLAIRE_CLAY_HASH_LINE REGEX "^clay_header_sha256 = ")

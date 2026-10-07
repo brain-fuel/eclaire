@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 — 2026-10-07
+
+- Place static and shared native outputs in the NuGet target's expected directory so iOS consumers link the packaged C archive.
+
 ## 0.1.2 — 2026-10-07
 
 - Add a serialized Go layout API over the pinned Clay core.

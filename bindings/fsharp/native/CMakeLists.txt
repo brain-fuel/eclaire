@@ -17,5 +17,13 @@ if(UNIX AND NOT APPLE)
   target_link_libraries(eclaire PRIVATE m)
 endif()
 set_target_properties(eclaire PROPERTIES
+  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out"
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out"
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out")
+
+foreach(config DEBUG RELEASE RELWITHDEBINFO MINSIZEREL)
+  set_target_properties(eclaire PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY_${config} "${CMAKE_BINARY_DIR}/out"
+    LIBRARY_OUTPUT_DIRECTORY_${config} "${CMAKE_BINARY_DIR}/out"
+    RUNTIME_OUTPUT_DIRECTORY_${config} "${CMAKE_BINARY_DIR}/out")
+endforeach()

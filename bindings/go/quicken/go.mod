@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	gioui.org v0.10.1
-	github.com/brain-fuel/eclaire v0.1.2
+	github.com/brain-fuel/eclaire v0.1.3
 	goforge.dev/cadence v0.4.0
 	goforge.dev/quicken/native v0.2.0
 )
