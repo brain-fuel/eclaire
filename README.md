@@ -24,30 +24,30 @@ Eclaire is distributed as a NuGet package for `net10.0` and `net10.0-ios`. Its `
 
 ```sh
 make pack-fsharp
-dotnet add package Eclaire --version 0.1.1 --source build/nuget
+dotnet add package Eclaire --version 0.1.2 --source build/nuget
 ```
 
 For mobile apps, build with a runtime identifier such as `android-arm64`, `android-arm`, `android-x64`, `android-x86`, `ios-arm64`, `iossimulator-arm64`, or `iossimulator-x64`. The package builds the native library for that RID during the app build.
 
-Once published, install it with `dotnet add package Eclaire --version 0.1.1`.
+Once published, install it with `dotnet add package Eclaire --version 0.1.2`.
 
 ### Rust / Cargo
 
 The Cargo library and CLI compile the native C core with Cargo's target-aware C compiler during setup.
 
 ```sh
-cargo install --locked --path .
+cargo install --git https://github.com/brain-fuel/eclaire.git --tag v0.1.2 --locked eclaire
 eclaire --version
 ```
 
-Rust applications can depend on the package from Git until it is published to crates.io:
+From a checkout, `cargo install --locked --path .` builds the same CLI. Rust applications can depend on the package from Git until it is published to crates.io:
 
 ```toml
 [dependencies]
-eclaire = { git = "https://github.com/brain-fuel/eclaire.git", tag = "v0.1.1" }
+eclaire = { git = "https://github.com/brain-fuel/eclaire.git", tag = "v0.1.2" }
 ```
 
-After crates.io publication, use `eclaire = "0.1.1"` instead. The Cargo build script compiles the native core with the selected target's C compiler, and `eclaire::CLAY_COMMIT` reports the pinned Clay revision.
+After crates.io publication, use `eclaire = "0.1.2"` instead. The Cargo build script compiles the native core with the selected target's C compiler, and `eclaire::CLAY_COMMIT` reports the pinned Clay revision.
 
 ### Haskell / Hackage
 
@@ -61,7 +61,7 @@ eclaire --version
 Until then, clone the exact public release tag and install from its checkout:
 
 ```sh
-git clone --branch v0.1.1 --depth 1 https://github.com/brain-fuel/eclaire.git
+git clone --branch v0.1.2 --depth 1 https://github.com/brain-fuel/eclaire.git
 cd eclaire
 stack install
 ```
@@ -73,13 +73,21 @@ stack install
 The Go package uses cgo to compile the native core with the target C compiler. Install the CLI with:
 
 ```sh
-go install github.com/brain-fuel/eclaire/cmd/eclaire@v0.1.1
+go install github.com/brain-fuel/eclaire/cmd/eclaire@v0.1.2
 eclaire --version
 ```
 
-Go libraries can import `github.com/brain-fuel/eclaire/bindings/go/eclaire` at the same tag. The package exposes `Version` and `ClayCommit` alongside the native API.
+Go libraries can import `github.com/brain-fuel/eclaire/bindings/go/eclaire` at the same tag. The package exposes `Version` and `ClayCommit` alongside the native API. `eclaire.Layout` also computes semantic-tree geometry with the pinned Clay core.
 
-For cross-target builds, set Go's `GOOS`, `GOARCH`, `CGO_ENABLED`, and target C compiler together. GoForge's future Cadence and Quicken adapters will use this package boundary.
+GoForge applications can add the optional Cadence/Quicken adapter:
+
+```sh
+go get github.com/brain-fuel/eclaire/bindings/go/quicken@v0.1.2
+```
+
+Use `quicken.SELView` as the Quicken Native view callback. It translates Cadence `sel.Element` trees to Clay geometry, then uses Quicken's Gio widgets for controls and event dispatch. The adapter supports the same Quicken Native view contract used by desktop and mobile hosts; target toolchains still need to provide their normal cgo C compiler.
+
+For cross-target builds, set Go's `GOOS`, `GOARCH`, `CGO_ENABLED`, and target C compiler together. The optional GoForge adapter above connects Cadence's semantic tree to Quicken's native view contract through Eclaire's Clay-backed layout pass.
 
 ### CMake / C
 

@@ -29,6 +29,7 @@ checks = {
     "bindings/go/eclaire/native.go": rf'const Version = "{re.escape(version)}"',
     "bindings/haskell-cli/Main.hs": rf'packageVersion = "{re.escape(version)}"',
     "go.mod": r"module github\.com/brain-fuel/eclaire",
+    "bindings/go/quicken/go.mod": rf"github\.com/brain-fuel/eclaire v{re.escape(version)}",
     "eclaire.toml": rf'version = "{re.escape(version)}"',
 }
 for relative, pattern in checks.items():

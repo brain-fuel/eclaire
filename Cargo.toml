@@ -1,6 +1,6 @@
 [package]
 name = "eclaire"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "Cross-language semantic UI layout engine powered by Clay"
 license = "MIT AND Zlib"
@@ -11,7 +11,21 @@ readme = "README.md"
 build = "bindings/rust/build.rs"
 autoexamples = false
 exclude = [
+  "/bindings/fsharp/**",
+  "/bindings/go/**",
+  "/bindings/haskell/**",
+  "/bindings/haskell-cli/**",
+  "/cmd/**",
   "/examples/**",
+  "/tests/**",
+  "/cmake/**",
+  "/scripts/**",
+  "/go.mod",
+  "/stack.yaml",
+  "/stack.yaml.lock",
+  "/eclaire.cabal",
+  "/Makefile",
+  "/CMakeLists.txt",
   "/build/**",
   "/dist/**",
   "/.stack-work/**",

@@ -7,11 +7,16 @@ package eclaire
 */
 import "C"
 
+import "sync"
+
 // Version is the Eclaire release represented by this Go package.
-const Version = "0.1.1"
+const Version = "0.1.2"
 
 // ClayCommit is the upstream Clay revision pinned by this Eclaire release.
 const ClayCommit = "e6cc36941ab2af5d81107617039d6f527a1c660b"
+
+// nativeMu serializes calls into the process-global Clay context.
+var nativeMu sync.Mutex
 
 // IRVersion reports the semantic IR version exposed by the native core.
 func IRVersion() uint32 { return uint32(C.eclaire_ir_version()) }
