@@ -1,0 +1,1 @@
+`Main.hs` defines the pure Haskell Elmish model, messages, semantic view tree, and action mapping. Its Miso WebAssembly browser host is in `browser/`; the Brick, GTK4, and mobile adapters remain future work. See [the shared C/F#/Haskell browser parity guide](../browser/README.md).

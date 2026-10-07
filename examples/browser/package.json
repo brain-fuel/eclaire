@@ -1,0 +1,11 @@
+{
+  "name": "elmish-clay-browser-parity",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bash run-parity.sh"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

@@ -1,0 +1,3 @@
+@PACKAGE_INIT@
+include("${CMAKE_CURRENT_LIST_DIR}/elmish_clayTargets.cmake")
+check_required_components(elmish_clay)

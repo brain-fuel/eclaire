@@ -1,0 +1,16 @@
+/build/
+/elmish-clay-smoke
+/examples/browser/node_modules/
+/examples/c/browser/static/elmish-clay-c.wasm
+/examples/c/browser/static/showcase.css
+/examples/c/browser/static/night-sky.svg
+/examples/fsharp/bin/
+/examples/fsharp/obj/
+/examples/fsharp/browser/bin/
+/examples/fsharp/browser/obj/
+/examples/fsharp/browser/wwwroot/showcase.css
+/examples/fsharp/browser/wwwroot/night-sky.svg
+/examples/haskell/browser/dist-newstyle/
+/examples/haskell/browser/public/
+/examples/haskell/browser/static/showcase.css
+/examples/haskell/browser/static/night-sky.svg

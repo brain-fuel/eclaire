@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elmish Clay Showcase</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./showcase.css">
+</head>
+<body>
+  <div id="app" class="page">
+    <header>
+      <p class="eyebrow">ELMISH CLAY SHOWCASE</p>
+      <h1>One model, three runtimes</h1>
+      <p class="lede">The same state, controls, content, and actions in C, F#, and Haskell.</p>
+    </header>
+    <main class="showcase" aria-labelledby="showcase-title">
+      <h2 id="showcase-title">Counter showcase</h2>
+      <p class="count" id="counter" aria-live="polite">Count: 0</p>
+      <div class="actions">
+        <button id="decrease" type="button" data-action="100" aria-label="Decrease">−</button>
+        <button id="increase" type="button" data-action="101" aria-label="Increase">+</button>
+      </div>
+      <label class="check-row"><input id="show-details" type="checkbox" data-action="102" checked>Show details</label>
+      <section class="details" aria-label="Details">
+        <p>Clay solves layout; each host preserves control semantics.</p>
+        <img class="hero-image" src="/night-sky.svg" alt="A starry sky above a mountain ridge">
+        <section class="scroll-area" role="region" aria-label="Scrollable layout notes">
+          <p>Resize the browser to see the responsive card. Use Tab to move through the controls, then Space or Enter to activate them. The counter updates in a polite live region. The checkbox controls this details section. The image has alternative text, and this notes panel scrolls independently when its content is taller than the panel. All three runtimes use the same action IDs: 100 decreases, 101 increases, and 102 toggles details.</p>
+        </section>
+      </section>
+    </main>
+    <footer>Elmish Clay cross-language showcase · actions 100–102</footer>
+  </div>
+  <script src="./index.js" type="module"></script>
+</body>
+</html>

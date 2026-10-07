@@ -1,0 +1,1 @@
+The `fsharp/Program.fs` and `haskell/Main.hs` files define matching language-level Elmish state, messages, semantic view trees, and action dispatch. The browser hosts, including the C/WebAssembly target, are in `c/browser`, `fsharp/browser`, and `haskell/browser`. See [the shared browser showcase contract and launch guide](browser/README.md).

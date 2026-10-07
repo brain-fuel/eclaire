@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Program.fs" Link="Program.fs" />
+    <Compile Include="Main.fs" />
+    <Compile Include="Startup.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Keep these as files in the web root: the WASM dev server serves files
+         from the source web root, not only from the output copy. -->
+    <Content Remove="wwwroot/showcase.css;wwwroot/night-sky.svg" />
+    <Content Include="wwwroot/showcase.css" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="wwwroot/night-sky.svg" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bolero" Version="0.*" />
+    <PackageReference Include="Bolero.Build" Version="0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.*" />
+  </ItemGroup>
+  <Target Name="SyncSharedShowcaseAssets" BeforeTargets="PrepareForBuild">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/../../browser/showcase.css"
+          DestinationFiles="$(MSBuildProjectDirectory)/wwwroot/showcase.css" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)/../../browser/night-sky.svg"
+          DestinationFiles="$(MSBuildProjectDirectory)/wwwroot/night-sky.svg" />
+  </Target>
+</Project>

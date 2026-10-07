@@ -1,0 +1,1 @@
+`Program.fs` defines the pure F# Elmish model, messages, semantic view tree, and action mapping. Its Bolero WebAssembly browser host is in `browser/`; the TUI and desktop/mobile adapters remain future work. See [the shared C/F#/Haskell browser parity guide](../browser/README.md).
