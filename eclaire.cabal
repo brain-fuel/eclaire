@@ -2,6 +2,8 @@ cabal-version: 3.0
 name: eclaire
 version: 0.1.0.0
 synopsis: Cross-language semantic UI layout engine powered by Clay
+description: A cross-language semantic UI and layout engine with a C ABI,
+             Haskell bindings, and a versioned semantic contract.
 category: UI
 license: MIT AND Zlib
 license-file: LICENSE
@@ -12,10 +14,14 @@ extra-source-files:
   eclaire.toml
   ir-v1.json
   README.md
-  CHANGELOG.md
   third_party/clay/README.md
   third_party/clay/LICENSE.md
   third_party/clay/clay.h
+extra-doc-files: CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/brain-fuel/eclaire.git
 
 library
   exposed-modules: Eclaire

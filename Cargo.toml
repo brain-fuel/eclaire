@@ -4,20 +4,22 @@ version = "0.1.0"
 edition = "2021"
 description = "Cross-language semantic UI layout engine powered by Clay"
 license = "MIT AND Zlib"
+repository = "https://github.com/brain-fuel/eclaire"
+homepage = "https://github.com/brain-fuel/eclaire"
+documentation = "https://docs.rs/eclaire"
 readme = "README.md"
 build = "bindings/rust/build.rs"
-include = [
-  "Cargo.toml",
-  "Cargo.lock",
-  "README.md",
-  "LICENSE",
-  "eclaire.toml",
-  "ir-v1.json",
-  "include/eclaire.h",
-  "src/eclaire.c",
-  "third_party/clay/clay.h",
-  "third_party/clay/LICENSE.md",
-  "bindings/rust/**",
+autoexamples = false
+exclude = [
+  "/examples/**",
+  "/build/**",
+  "/dist/**",
+  "/.stack-work/**",
+  "**/node_modules/**",
+  "**/dist-newstyle/**",
+  "**/bin/**",
+  "**/obj/**",
+  "**/*.wasm",
 ]
 
 [lib]
