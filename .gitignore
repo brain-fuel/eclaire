@@ -3,6 +3,7 @@
 /elmish*-smoke
 /eclaire
 /target/
+/dist-newstyle/
 /examples/browser/node_modules/
 /examples/c/browser/static/*.wasm
 /examples/c/browser/static/showcase.css
